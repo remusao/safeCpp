@@ -81,36 +81,31 @@ _Top Top = _Top{};
 
 // Specialization for Stack
 template <
-    template <typename, std::size_t, std::size_t> class Stack,
     typename T,
     std::size_t N,
     std::size_t Capacity>
-Stack<T, N + 1, Capacity> operator>> (Stack<T, N, Capacity>&& s, Push<T> r)
+auto operator>> (Structures::Safe::Stack<T, N, Capacity>&& s, Push<T> r) -> decltype (s.push(r.e))
 {
     return s.push(r.e);
 }
 
 template <
-    template <typename, std::size_t, std::size_t> class Stack,
     typename T,
     std::size_t N,
     std::size_t Capacity>
-Stack<T, N - 1, Capacity> operator>> (Stack<T, N, Capacity>&& s, _Pop)
+auto operator>> (Structures::Safe::Stack<T, N, Capacity>&& s, _Pop) -> decltype (s.pop())
 {
     return s.pop();
 }
 
 template <
-    template <typename, std::size_t, std::size_t> class Stack,
     typename T,
     std::size_t N,
     std::size_t Capacity>
-T& operator>> (Stack<T, N, Capacity>&& s, _Top)
+T& operator>> (Structures::Safe::Stack<T, N, Capacity>&& s, _Top)
 {
     return s.top();
 }
-
-
 
 
 // Implementation
